@@ -2,9 +2,10 @@
 
 function New-Ticket {
 
+    [CmdLetBinding(PositionalBinding=$false)]
     param (
         
-          [Parameter(Mandatory=$true)]
+          [Parameter(Mandatory=$true,Position=0)]
           [String[]] $Ticket
         , [String]   $Description
         , [String]   $Type = 'all'
