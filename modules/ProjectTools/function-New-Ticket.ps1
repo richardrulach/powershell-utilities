@@ -1,4 +1,41 @@
+<#
+.SYNOPSIS
+Creates the necessary folder scaffolding for a new ticket.
 
+.DESCRIPTION
+This function creates a new directory in the name of the ticket and description (if provided).
+Within the new directory three subdirectories are created:
+    \code\scripts
+    \code\ssis
+    \tests
+
+Each directory corresponds to the Types provided in the arguments.
+If all is provided as the Type then all three directories are created
+
+.PARAMETER Ticket
+A string that identifies the ticket you are working on.
+Ideally this will be the JIRA number - for instance AS-1234
+
+.PARAMETER Description
+A string that provides extra information on the ticket.  This is appended to the ticket number as the top level directory name.
+
+.PARAMETER Type
+There are four alternatives for Type
+    sql   - creates a sql server scripts solution with three sub projects: investigation, solution and tests
+    ssis  - creates an ssis project
+    tests - folder to contain all test scripts 
+    all (default) - generates all three options - sql, ssis, tests.
+
+.PARAMETER Path
+The root directory for creating the project folders and files.
+If it doesn't exist then the switch Force is required to create it.  Otherwise a path not found error is thrown.
+
+.PARAMETER Rebuild
+Switch that indicates the files in the root folder should be merged into the appropriate folder and/or project.
+
+.PARAMETER Force
+Switch that creates the Path directory if it doesn't exist
+#>
 
 function New-Ticket {
 
@@ -20,7 +57,7 @@ function New-Ticket {
     PROCESS{
 
 
-        #region VALIDATION
+        # VALIDATION
         if (-not [System.IO.Directory]::Exists($Path)){ throw "Path does not exist" }
 
         foreach ($ticketNumber in $Ticket){
@@ -28,10 +65,9 @@ function New-Ticket {
                 throw "Ticket folder already exists - use force to create anyway"
             }
         } 
-        #endregion VALIDATION
 
 
-        #region MAIN TICKET LOOP
+        # MAIN TICKET LOOP
         foreach ($ticketNumber in $Ticket){
 
             $output = @{}
