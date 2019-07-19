@@ -23,12 +23,12 @@ function Get-SPTable {
     [CmdletBinding()]
     param(
           [Parameter(Mandatory=$true,Position=0)]
-          [String]      $Server
-        , [String]      $Schema
-        , [String]      $Proc
-        , [String]      $Params
-        , [Credential]  $Credential
-        , [Switch]      $TableVar
+          [String]         $Server
+        , [String]         $Schema
+        , [String]         $Proc
+        , [String]         $Params
+        , [PSCredential]   $Credential
+        , [Switch]         $TableVar
 
     )
 
